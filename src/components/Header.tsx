@@ -2,6 +2,15 @@ import { useCurrentLesson } from '../store/slices/player';
 
 export default function Header() {
    const { currentModule, currentLesson } = useCurrentLesson();
+
+   if (!currentLesson) {
+      return null;
+   }
+
+   if (!currentModule) {
+      return null;
+   }
+
    return (
       <>
          <article className="flex flex-col gap-1">
