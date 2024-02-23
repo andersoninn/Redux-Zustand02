@@ -12,6 +12,8 @@ export default function Player() {
 
    const modules = useAppSelector((state) => state.player.course?.modules);
 
+   const isCourseLoading = useAppSelector((state) => state.player.isLoading);
+
    const { currentLesson } = useCurrentLesson();
 
    useEffect(() => {
@@ -35,23 +37,28 @@ export default function Player() {
                      Deixar feedback
                   </button>
                </article>
-               <main className="relative flex overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow pr-80">
+               <main className="relative flex overflow-hidden rounded-lg border border-zinc-800 shadow pr-80">
                   <section className="flex-1">
                      <Video />
                   </section>
-                  <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-                     {modules &&
-                        modules.map((module, index) => {
-                           return (
-                              <Module
-                                 key={module.id}
-                                 moduleIndex={index}
-                                 title={module.title}
-                                 amountOfLessons={module.lessons.length}
-                              />
-                           );
-                        })}
-                  </aside>
+
+                  {isCourseLoading ? (
+                     <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800 animate-pulse"></aside>
+                  ) : (
+                     <aside className="w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
+                        {modules &&
+                           modules.map((module, index) => {
+                              return (
+                                 <Module
+                                    key={module.id}
+                                    moduleIndex={index}
+                                    title={module.title}
+                                    amountOfLessons={module.lessons.length}
+                                 />
+                              );
+                           })}
+                     </aside>
+                  )}
                </main>
             </section>
          </section>

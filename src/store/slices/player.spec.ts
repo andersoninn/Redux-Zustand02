@@ -27,6 +27,7 @@ const exempleState: PlayerState =  {
             },
           ],
     },
+    isLoading: false,
     currentModuleIndex: 0,
     currentLessonIndex: 0,
 }
